@@ -5,6 +5,7 @@ import dev.elma.orm_jpa_association.repositories.ConsultationRepository;
 import dev.elma.orm_jpa_association.repositories.MedecinRepository;
 import dev.elma.orm_jpa_association.repositories.PatientRepository;
 import dev.elma.orm_jpa_association.repositories.RendezVousRepository;
+import dev.elma.orm_jpa_association.services.HospitalServices;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,10 +18,7 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 public class OrmJpaAssociationApplication implements CommandLineRunner {
 
-    PatientRepository patientRepository;
-    MedecinRepository medecinRepository;
-    RendezVousRepository rendezVousRepository;
-    ConsultationRepository consultationRepository;
+    HospitalServices hospitalServices;
     public static void main(String[] args) {
 
         SpringApplication.run(OrmJpaAssociationApplication.class, args);
@@ -36,7 +34,7 @@ public class OrmJpaAssociationApplication implements CommandLineRunner {
                             name(name).
                             sick(true).
                             build();
-                    patientRepository.save(p);
+                    hospitalServices.savePatient(p);
                 });
         Stream.of("Imad","Jamila","Nadia")
                 .forEach(name->{
@@ -44,18 +42,18 @@ public class OrmJpaAssociationApplication implements CommandLineRunner {
                             .name(name)
                             .speciality(Math.random()>0.5?"Chijurgien":"Dentiste")
                             .email(name+"@gmail.com").build();
-                    medecinRepository.save(m);
+                    hospitalServices.saveMedecin(m);
                 });
 
-        Patient p=patientRepository.findPatientByName("Ibrahim");
-        Medecin m=medecinRepository.findMedecinByName("Jamila");
+        Patient p=hospitalServices.findPatient("Ibrahim");
+        Medecin m=hospitalServices.findMedecin("Jamila");
         RendezVous rendezVous1=RendezVous.builder()
                 .date(new Date()).patient(p).medecin(m).statusRDV(StatusRDV.PENDING).build();
-        rendezVousRepository.save(rendezVous1);
+        hospitalServices.saveRendezVous(rendezVous1);
 
         Consultation consultation = Consultation.builder()
                 .consultationDate(new Date()).rendezVous(rendezVous1).rapport("rapport...").build();
-        consultationRepository.save(consultation);
+        hospitalServices.saveConsultation(consultation);
 
     }
 }

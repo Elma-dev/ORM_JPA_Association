@@ -38,4 +38,13 @@ public class HospitalServices implements IHospitalServices{
     public Consultation saveConsultation(Consultation c) {
         return consultationRepository.save(c);
     }
+
+    public Patient findPatient(String name){
+        return patientRepository.findPatientByName(name);
+    }
+    public Medecin findMedecin(String name){
+        return medecinRepository.findMedecinByName(name);
+    }
+
+
 }
