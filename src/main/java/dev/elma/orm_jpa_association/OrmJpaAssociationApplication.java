@@ -2,8 +2,11 @@ package dev.elma.orm_jpa_association;
 
 import dev.elma.orm_jpa_association.entities.Medecin;
 import dev.elma.orm_jpa_association.entities.Patient;
+import dev.elma.orm_jpa_association.entities.RendezVous;
+import dev.elma.orm_jpa_association.entities.StatusRDV;
 import dev.elma.orm_jpa_association.repositories.MedecinRepository;
 import dev.elma.orm_jpa_association.repositories.PatientRepository;
+import dev.elma.orm_jpa_association.repositories.RendezVousRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +21,7 @@ public class OrmJpaAssociationApplication implements CommandLineRunner {
 
     PatientRepository patientRepository;
     MedecinRepository medecinRepository;
+    RendezVousRepository rendezVousRepository;
     public static void main(String[] args) {
 
         SpringApplication.run(OrmJpaAssociationApplication.class, args);
@@ -43,5 +47,11 @@ public class OrmJpaAssociationApplication implements CommandLineRunner {
                             .email(name+"@gmail.com").build();
                     medecinRepository.save(m);
                 });
+
+        Patient p=patientRepository.findPatientByName("Ibrahim");
+        Medecin m=medecinRepository.findMedecinByName("Jamila");
+        RendezVous rendezVous1=RendezVous.builder()
+                .date(new Date()).patient(p).medecin(m).statusRDV(StatusRDV.PENDING).build();
+        rendezVousRepository.save(rendezVous1);
     }
 }
