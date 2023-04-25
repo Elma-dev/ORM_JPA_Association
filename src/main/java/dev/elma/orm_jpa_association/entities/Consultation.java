@@ -16,5 +16,6 @@ public class Consultation {
     @Temporal(TemporalType.DATE)
     private Date consultationDate;
     private String rapport;
+    @OneToOne
     private RendezVous rendezVous;
 }
