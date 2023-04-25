@@ -13,6 +13,7 @@ import java.util.Date;
 public class RendezVous {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Temporal(TemporalType.DATE)
     private Date date;
     private StatusRDV statusRDV;
     @ManyToOne
