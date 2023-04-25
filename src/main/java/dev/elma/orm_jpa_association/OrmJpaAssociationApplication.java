@@ -1,6 +1,8 @@
 package dev.elma.orm_jpa_association;
 
+import dev.elma.orm_jpa_association.entities.Medecin;
 import dev.elma.orm_jpa_association.entities.Patient;
+import dev.elma.orm_jpa_association.repositories.MedecinRepository;
 import dev.elma.orm_jpa_association.repositories.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +17,7 @@ import java.util.stream.Stream;
 public class OrmJpaAssociationApplication implements CommandLineRunner {
 
     PatientRepository patientRepository;
+    MedecinRepository medecinRepository;
     public static void main(String[] args) {
 
         SpringApplication.run(OrmJpaAssociationApplication.class, args);
@@ -27,10 +30,18 @@ public class OrmJpaAssociationApplication implements CommandLineRunner {
                 .forEach(name->{
                     Patient p=Patient.builder().
                             birthDay(new Date()).
-                            name("Abdeljalil").
+                            name(name).
                             sick(true).
                             build();
                     patientRepository.save(p);
+                });
+        Stream.of("Imad","Jamila","Nadia")
+                .forEach(name->{
+                    Medecin m=Medecin.builder()
+                            .name(name)
+                            .speciality(Math.random()>0.5?"Chijurgien":"Dentiste")
+                            .email(name+"@gmail.com").build();
+                    medecinRepository.save(m);
                 });
     }
 }
