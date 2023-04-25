@@ -10,8 +10,9 @@ import dev.elma.orm_jpa_association.repositories.PatientRepository;
 import dev.elma.orm_jpa_association.repositories.RendezVousRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service @Transactional
 @AllArgsConstructor
 public class HospitalServices implements IHospitalServices{
     private PatientRepository patientRepository;
