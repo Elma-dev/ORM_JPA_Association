@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service @Transactional
 @AllArgsConstructor
 public class HospitalServices implements IHospitalServices{
@@ -38,6 +40,26 @@ public class HospitalServices implements IHospitalServices{
     @Override
     public Consultation saveConsultation(Consultation c) {
         return consultationRepository.save(c);
+    }
+
+    @Override
+    public List<Patient> getAllPatient() {
+        return patientRepository.findAll();
+    }
+
+    @Override
+    public List<Medecin> getAllMedecin() {
+        return medecinRepository.findAll();
+    }
+
+    @Override
+    public List<RendezVous> getAllRendezVous() {
+        return rendezVousRepository.findAll();
+    }
+
+    @Override
+    public List<Consultation> getAllConsultations() {
+        return consultationRepository.findAll();
     }
 
     public Patient findPatient(String name){
