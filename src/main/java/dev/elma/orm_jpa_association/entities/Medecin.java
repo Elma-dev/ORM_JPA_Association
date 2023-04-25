@@ -1,5 +1,6 @@
 package dev.elma.orm_jpa_association.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,5 +18,6 @@ public class Medecin {
     private String speciality;
     private String email;
     @OneToMany(mappedBy = "medecin",fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Collection<RendezVous> rendezVousCollection;
 }

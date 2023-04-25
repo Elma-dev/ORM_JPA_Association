@@ -17,6 +17,6 @@ public class RestControllerWeb {
     public List<Patient> allPatient(){
         return hospitalServices.getAllPatient();
     }
-    
+
 
 }
